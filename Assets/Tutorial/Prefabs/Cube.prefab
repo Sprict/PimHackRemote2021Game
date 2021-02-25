@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 6502487612612475967}
   - component: {fileID: 1721323923023273669}
   - component: {fileID: 114755279283551200}
+  - component: {fileID: 114512615574525492}
+  - component: {fileID: 114788330126346284}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -116,8 +118,33 @@ MonoBehaviour:
   _sceneObjectAutoAttach: 1
   _alwaysProxy: 0
   _detachOnDisable: 1
-  _allowFirstReplicationWhenFrozen: 0
+  _allowFirstReplicationWhenFrozen: 1
   _autoRemoveChildEntities: 0
   _entityBehaviourQueryOption: 0
   _entityPriorityCalculatorQueryOption: 1
   _entityReplicationFilterQueryOption: 1
+--- !u!114 &114512615574525492
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7773653273563217173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9714b987da054b0b8750dd7e7c05d6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 1
+--- !u!114 &114788330126346284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7773653273563217173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37b29665986590a428177a599f56c247, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
