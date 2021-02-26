@@ -25,7 +25,7 @@ public class GrapplingGun : MonoBehaviour
         {
             StartGrapple();
         }
-        else if (Input.GetMouseButtonUp(0) || Input.GetKeyUp(KeyCode.Space) || Input.GetKeyDown(KeyCode.E))
+        else if (Input.GetMouseButtonUp(0) || Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.E))
         {
             StopGrapple();
         }
