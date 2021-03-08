@@ -27,7 +27,7 @@ public class Menu : GlobalEventListener {
 
             BoltMatchmaking.CreateSession (
                 sessionID: matchName,
-                sceneToLoad: "Tutorial1"
+                sceneToLoad: "Main"
             );
         }
     }

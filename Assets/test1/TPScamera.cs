@@ -5,11 +5,7 @@ using UnityEngine;
 public class TPScamera : MonoBehaviour
 {
     [SerializeField]
-    void Start()
-    {
-    }
-
-    public bool VerticallyInverted = false;
+    private bool VerticallyInverted = false;
     [Range(0f, 10f)]
     public float SensitivityX = 1.0f;
     [Range(0f, 10f)]
@@ -18,12 +14,9 @@ public class TPScamera : MonoBehaviour
     public float minYAngle = -0.5f;
     [Range(0.5f, 0.999f)]
     public float maxYAngle = 0.5f;
+
     void Update()
     {
-        Vector3 upper = new Vector3(0, 0f, 0);
-        Vector3 tmp = GameObject.Find("Player").transform.position;
-        transform.position = upper + tmp;
-
         //マウスのX,Y軸がどれほど移動したかを取得します
         float X_Rotation = Input.GetAxis("Mouse X");
         float Y_Rotation = VerticallyInverted ? Input.GetAxis("Mouse Y") : -Input.GetAxis("Mouse Y");

@@ -6,9 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Tutorial/Tutorial1_Menu.unity
+    path: Assets/Okuda/Tutorial/Tutorial1_Menu.unity
     guid: de234e02c5cbf4a25863bf11d7eb6e88
-  - enabled: 1
-    path: Assets/Tutorial/Tutorial1.unity
+  - enabled: 0
+    path: Assets/Okuda/Tutorial/Tutorial1.unity
     guid: fabbc5a9b689748beaac334746889bd2
+  - enabled: 1
+    path: Assets/Okuda/Main.unity
+    guid: 3acd053a83b7a074aa01f24db5ddd99e
   m_configObjects: {}
