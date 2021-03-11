@@ -5,13 +5,19 @@ using Bolt;
 
 [BoltGlobalBehaviour]　//この属性をつけたクラスをBoltが自動インスタンス化
 public class NetworkCallbacks : Bolt.GlobalEventListener {
+
+    public BoltEntity Center;
+    public BoltEntity Player;
     public override void SceneLoadLocalDone (string scene) {
 
         // randomize a position
         var spawnPosition = new Vector3 (Random.Range (-8, 8), 3.0f, Random.Range (-8, 8));
 
+        // instantiate center
+        //Center = BoltNetwork.Instantiate(BoltPrefabs.Center, spawnPosition, Quaternion.identity);
+        
         // instantiate cube
-        BoltNetwork.Instantiate (BoltPrefabs.Player, spawnPosition, Quaternion.identity);
+        Player = BoltNetwork.Instantiate (BoltPrefabs.Player, spawnPosition, Quaternion.identity);
 
     }
 

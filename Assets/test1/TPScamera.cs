@@ -29,6 +29,8 @@ public class TPScamera : MonoBehaviour
         //次はY軸の設定です。
         float nowAngle = transform.localRotation.x;
         //最大値、または最小値を超えた場合、カメラをそれ以上動かない用にしています。
+
+        
         //カメラが一回転しないようにするのを防ぎます。
         if (-Y_Rotation != 0)
         {
@@ -49,5 +51,14 @@ public class TPScamera : MonoBehaviour
         }
         //操作していると、Z軸がだんだん動いていくので、0に設定してください。
         transform.eulerAngles = new Vector3(this.transform.rotation.eulerAngles.x, this.transform.rotation.eulerAngles.y, 0f);
+
+        /*
+        if (transform.parent)
+        {
+            Transform parent = transform.parent.transform;
+            transform.Rotate(transform.eulerAngles - parent.eulerAngles);
+        }
+        */
     }
+
 }
