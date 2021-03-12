@@ -20,15 +20,17 @@ public class PlayerHealth : Bolt.EntityBehaviour<ICubeState>
 
         if (localHealth <= 0)
         {
+            Transform gun = GetComponent<PlayerBehaviour>().Center.transform.GetChild(0);
+            gun.gameObject.SetActive(false);
             BoltNetwork.Destroy(gameObject);
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void Damage(bool damage1)
     {
-        if (other.CompareTag("bullet"))
+        if (entity.IsOwner)
         {
-            state.Health -= 1;
+            state.Health -= damage1 ? 1 : 3;
         }
     }
 

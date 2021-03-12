@@ -7,7 +7,7 @@ public class PlayerBehaviour : Bolt.EntityEventListener<ICubeState>
 {
     private float _resetColorTime; //ダメージを受けた時に使う
     private Renderer _renderer;
-    private GameObject Center;
+    public GameObject Center;
     [SerializeField] private float power = 5;
     private Rigidbody rb;
 
@@ -31,19 +31,22 @@ public class PlayerBehaviour : Bolt.EntityEventListener<ICubeState>
         _renderer = GetComponent<Renderer>(); //ダメージを受けた時にマテリアルの色を変えるために使う
         rb = GetComponent<Rigidbody>();
         state.SetTransforms(state.CubeTransform, transform);
-
+        state.OnShoot += Shoot;
+        state.OnStartGrapple += StartGrapple;
+        state.OnStopGrapple += StopGrapple;
         if (entity.IsOwner)
         {
             state.CubeColor = new Color(Random.value, Random.value, Random.value);
-            Center = (GameObject)Resources.Load("Center");
-            Center = Instantiate(Center, this.transform.position, Quaternion.identity);
-        cameraTransform = Center.transform;
+            Center.transform.position = transform.position;
+            Center.transform.GetChild(1).gameObject.SetActive(true); //カメラをオン
+            Center.GetComponent<TPScamera>().enabled = true; //カメラの回転をオン
+            rayOrigin = Center.transform.GetChild(2);
+            cameraTransform = Center.transform;
         }
+        lr = GetComponent<LineRenderer>();
         //Center = BoltNetwork.Instantiate(BoltPrefabs.Center, this.transform.position, Quaternion.identity);
-        Debug.Log("hello");
         state.AddCallback("CubeColor", ColorChanged);
 
-        lr = GetComponent<LineRenderer>();
     }
 
     public override void SimulateOwner()
@@ -80,17 +83,16 @@ public class PlayerBehaviour : Bolt.EntityEventListener<ICubeState>
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            StartGrapple();
+            state.StartGrapple();
         }
         else if (Input.GetKeyUp(KeyCode.Space))
         {
-            StopGrapple();
+            state.StopGrapple();
         }
 
-        if (Input.GetKeyDown(KeyCode.J))
+        if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            Shot shotCommand = Center.transform.GetChild(0).GetComponent<Shot>();
-            shotCommand.BulletShot();
+            state.Shoot();
         }
 
         if (Input.GetKey(KeyCode.E))
@@ -103,8 +105,6 @@ public class PlayerBehaviour : Bolt.EntityEventListener<ICubeState>
             reelout();
         }
 
-        this.Center.transform.position = this.transform.position; // CenterのポジションをPlayerのポジションと同期させる
-        RotationSync();
     }
 
     private void Update()
@@ -119,6 +119,8 @@ public class PlayerBehaviour : Bolt.EntityEventListener<ICubeState>
     void LateUpdate()
     {
         DrawRope();
+        if(entity.IsOwner)
+            this.Center.transform.position = this.transform.position; // CenterのポジションをPlayerのポジションと同期させる
     }
 
     /// <summary>
@@ -131,8 +133,7 @@ public class PlayerBehaviour : Bolt.EntityEventListener<ICubeState>
 
         if (Physics.Raycast(rayOrigin.position, rayOrigin.forward, out hit, maxDistance, whatIsGrappleable))
         {
-            Debug.Log(hit.transform.gameObject);
-
+            BoltLog.Error("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
             grapplePoint = hit.point;
             joint = player.gameObject.AddComponent<SpringJoint>();
             joint.autoConfigureConnectedAnchor = false;
@@ -152,7 +153,9 @@ public class PlayerBehaviour : Bolt.EntityEventListener<ICubeState>
 
             lr.positionCount = 2;
             currentGrapplePosition = grappleTip.position;
+            Debug.DrawRay(rayOrigin.position, rayOrigin.forward * 100, Color.red, 3, false);
         }
+        
     }
 
 
@@ -171,13 +174,13 @@ public class PlayerBehaviour : Bolt.EntityEventListener<ICubeState>
 
     void DrawRope()
     {
-        //If not grappling, don't draw rope
-        if (!joint) return;
+            //If not grappling, don't draw rope
+            if (!joint) return;
 
-        currentGrapplePosition = Vector3.Lerp(currentGrapplePosition, grapplePoint, Time.deltaTime * drowSpeed);
+            currentGrapplePosition = Vector3.Lerp(currentGrapplePosition, grapplePoint, Time.deltaTime * drowSpeed);
 
-        lr.SetPosition(0, grappleTip.position);
-        lr.SetPosition(1, currentGrapplePosition);
+            lr.SetPosition(0, grappleTip.position);
+            lr.SetPosition(1, currentGrapplePosition);
     }
 
     public bool IsGrappling()
@@ -211,11 +214,6 @@ public class PlayerBehaviour : Bolt.EntityEventListener<ICubeState>
         _renderer.material.color = evnt.FlashColor;
     }
 
-    void RotationSync()
-    {
-        transform.GetChild(0).transform.rotation = Center.transform.rotation;
-    }
-
     void reelin ()
     {
         if(joint)
@@ -226,5 +224,12 @@ public class PlayerBehaviour : Bolt.EntityEventListener<ICubeState>
     {
         if (joint)
             joint.maxDistance += reelSpeed * Time.deltaTime;
+    }
+
+    private void Shoot()
+    {
+        Shot shotCommand = Center.transform.GetChild(0).GetComponent<Shot>();
+        shotCommand.BulletShot();
+        Debug.Log("Fire!");
     }
 }
