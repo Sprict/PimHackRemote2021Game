@@ -7,7 +7,7 @@ public class PlayerBehaviour : Bolt.EntityEventListener<ICubeState>
 {
     private float _resetColorTime; //ダメージを受けた時に使う
     private Renderer _renderer;
-    public BoltEntity Center;
+    public GameObject Center;
     [SerializeField] private float power = 5;
     private Rigidbody rb;
 
@@ -31,22 +31,23 @@ public class PlayerBehaviour : Bolt.EntityEventListener<ICubeState>
     {
         _renderer = GetComponent<Renderer>(); //ダメージを受けた時にマテリアルの色を変えるために使う
         rb = GetComponent<Rigidbody>();
+        lr = GetComponent<LineRenderer>();
         state.SetTransforms(state.CubeTransform, transform);
         state.OnShoot += Shoot;
         state.OnStartGrapple += StartGrapple;
         state.OnStopGrapple += StopGrapple;
+        state.AddCallback("CubeColor", ColorChanged);
+
         if (entity.IsOwner)
         {
-            state.CubeColor = new Color(Random.value, Random.value, Random.value);
             Center = BoltNetwork.Instantiate(BoltPrefabs.Center, this.transform.position, Quaternion.identity);
-            Center.transform.GetChild(1).gameObject.SetActive(true); //カメラをオン
+            state.CubeColor = new Color(Random.value, Random.value, Random.value);
+            Center.transform.GetChild(2).gameObject.SetActive(true); //カメラをオン
             Center.GetComponent<TPScamera>().enabled = true; //カメラの回転をオン
-            rayOrigin = Center.transform.GetChild(2);
             cameraTransform = Center.transform;
         }
-        lr = GetComponent<LineRenderer>();
-        //Center = BoltNetwork.Instantiate(BoltPrefabs.Center, this.transform.position, Quaternion.identity);
-        state.AddCallback("CubeColor", ColorChanged);
+        rayOrigin = Center.transform.GetChild(1);
+
 
     }
 
@@ -120,8 +121,10 @@ public class PlayerBehaviour : Bolt.EntityEventListener<ICubeState>
     void LateUpdate()
     {
         DrawRope();
-        if(entity.IsOwner)
+        if (entity.IsOwner)
+        {
             this.Center.transform.position = this.transform.position; // CenterのポジションをPlayerのポジションと同期させる
+        }
     }
 
     /// <summary>
@@ -131,7 +134,7 @@ public class PlayerBehaviour : Bolt.EntityEventListener<ICubeState>
     {
 
         RaycastHit hit;
-
+        BoltLog.Info(this.rayOrigin);
         if (Physics.Raycast(this.rayOrigin.position, this.rayOrigin.forward, out hit, maxDistance, whatIsGrappleable))
         {
             BoltLog.Info("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
@@ -230,7 +233,7 @@ public class PlayerBehaviour : Bolt.EntityEventListener<ICubeState>
     private void Shoot()
     {
         Shot shotCommand = Center.transform.GetChild(0).GetComponent<Shot>();
-        shotCommand.BulletShot();
+        shotCommand.BulletShot(rb.velocity);
         Debug.Log("Fire!");
     }
 }

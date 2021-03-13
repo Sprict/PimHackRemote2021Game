@@ -2244,11 +2244,13 @@
         {
           "Name": "CubeTransform",
           "Enabled": true,
+          "Expanded": true,
           "ReplicationMode": 1,
           "Priority": 1,
           "PropertyType": {
             "$type": "Bolt.Compiler.PropertyTypeTransform, bolt.compiler",
             "PositionSelection": 14,
+            "Space": 1,
             "PositionCompression": [
               {
                 "MinValue": -1024,
@@ -2323,6 +2325,7 @@
         {
           "Name": "CubeColor",
           "Enabled": true,
+          "Expanded": true,
           "ReplicationMode": 1,
           "Priority": 1,
           "PropertyType": {
@@ -4434,6 +4437,7 @@
             "$type": "Bolt.Compiler.PropertyTypeTransform, bolt.compiler",
             "PositionSelection": 14,
             "RotationSelection": 14,
+            "Space": 1,
             "PositionCompression": [
               {
                 "MinValue": -1024,
@@ -4498,6 +4502,7 @@
           },
           "AssetSettings": {
             "$type": "Bolt.Compiler.PropertyStateSettings, bolt.compiler",
+            "SmoothingAlgorithm": 1,
             "ExtrapolationErrorTolerance": 0.25,
             "_ExtrapolationCorrectionFrames": 6,
             "ExtrapolationMaxFrames": 9,
@@ -4573,7 +4578,7 @@
         }
       },
       "Name": "CenterState",
-      "Guid": "48ce909a-3d48-45d4-9b9a-5bdd01ea1400",
+      "Guid": "467f2416-4647-4c52-b3df-4981e5162f4b",
       "Groups": [
         "samples"
       ]
