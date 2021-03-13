@@ -14,7 +14,7 @@ public class NetworkCallbacks : Bolt.GlobalEventListener {
         var spawnPosition = new Vector3 (Random.Range (-8, 8), 3.0f, Random.Range (-8, 8));
 
         // instantiate center
-        Center = BoltNetwork.Instantiate(BoltPrefabs.Center, spawnPosition, Quaternion.identity);
+        //Center = BoltNetwork.Instantiate(BoltPrefabs.Center, spawnPosition, Quaternion.identity);
         
         // instantiate cube
         Player = BoltNetwork.Instantiate (BoltPrefabs.Player, spawnPosition, Quaternion.identity);

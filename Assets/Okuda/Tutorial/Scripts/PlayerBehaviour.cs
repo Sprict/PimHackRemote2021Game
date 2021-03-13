@@ -7,14 +7,15 @@ public class PlayerBehaviour : Bolt.EntityEventListener<ICubeState>
 {
     private float _resetColorTime; //ダメージを受けた時に使う
     private Renderer _renderer;
-    public GameObject Center;
+    public BoltEntity Center;
     [SerializeField] private float power = 5;
     private Rigidbody rb;
 
     private LineRenderer lr;
     private Vector3 grapplePoint;
     public LayerMask whatIsGrappleable;
-    public Transform grappleTip, rayOrigin, player;
+    public Transform grappleTip, player;
+    private Transform rayOrigin;
     private float maxDistance = 100f;
     private SpringJoint joint;
     private Transform cameraTransform;
@@ -37,7 +38,7 @@ public class PlayerBehaviour : Bolt.EntityEventListener<ICubeState>
         if (entity.IsOwner)
         {
             state.CubeColor = new Color(Random.value, Random.value, Random.value);
-            Center.transform.position = transform.position;
+            Center = BoltNetwork.Instantiate(BoltPrefabs.Center, this.transform.position, Quaternion.identity);
             Center.transform.GetChild(1).gameObject.SetActive(true); //カメラをオン
             Center.GetComponent<TPScamera>().enabled = true; //カメラの回転をオン
             rayOrigin = Center.transform.GetChild(2);
@@ -131,9 +132,9 @@ public class PlayerBehaviour : Bolt.EntityEventListener<ICubeState>
 
         RaycastHit hit;
 
-        if (Physics.Raycast(rayOrigin.position, rayOrigin.forward, out hit, maxDistance, whatIsGrappleable))
+        if (Physics.Raycast(this.rayOrigin.position, this.rayOrigin.forward, out hit, maxDistance, whatIsGrappleable))
         {
-            BoltLog.Error("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+            BoltLog.Info("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
             grapplePoint = hit.point;
             joint = player.gameObject.AddComponent<SpringJoint>();
             joint.autoConfigureConnectedAnchor = false;
@@ -153,7 +154,7 @@ public class PlayerBehaviour : Bolt.EntityEventListener<ICubeState>
 
             lr.positionCount = 2;
             currentGrapplePosition = grappleTip.position;
-            Debug.DrawRay(rayOrigin.position, rayOrigin.forward * 100, Color.red, 3, false);
+            Debug.DrawRay(this.rayOrigin.position, this.rayOrigin.forward * 100, Color.red, 3, false);
         }
         
     }

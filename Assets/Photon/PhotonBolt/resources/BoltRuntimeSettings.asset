@@ -21,11 +21,11 @@ MonoBehaviour:
     scopeMode: 0
     logTargets: 3
     disableDejitterBuffer: 0
-    clientSendRate: 1
+    clientSendRate: 3
     clientDejitterDelay: 6
     clientDejitterDelayMin: 3
     clientDejitterDelayMax: 9
-    serverSendRate: 1
+    serverSendRate: 3
     serverDejitterDelay: 6
     serverDejitterDelayMin: 3
     serverDejitterDelayMax: 9
@@ -49,11 +49,11 @@ MonoBehaviour:
   debugBuildMode: 1
   debugStartMapName: SimpleMoveAndShoot_Game
   debugPlayAsServer: 1
-  showDebugInfo: 0
+  showDebugInfo: 1
   overrideTimeScale: 1
   debugEditorMode: 0
   consoleToggleKey: 9
-  consoleVisibleByDefault: 0
+  consoleVisibleByDefault: 1
   compilationWarnLevel: 4
   editorSkin: 4
   scopeModeHideWarningInGui: 0
@@ -62,7 +62,7 @@ MonoBehaviour:
   serializeProjectAsText: 0
   photonAppId: 068a6b52-d49b-4f61-9bcd-01886434dcc7
   photonUsePunch: 1
-  photonCloudRegionIndex: 7
+  photonCloudRegionIndex: 0
   instantiateMode: 2
   globalEntityBehaviourQueryOption: 3
   globalEntityPriorityCalculatorQueryOption: 3
