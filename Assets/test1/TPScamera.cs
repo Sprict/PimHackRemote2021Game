@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TPScamera : MonoBehaviour
+public class TPScamera : Bolt.EntityBehaviour<ICenterState>
 {
     [SerializeField]
     private bool VerticallyInverted = false;

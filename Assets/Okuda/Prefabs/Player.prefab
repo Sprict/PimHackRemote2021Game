@@ -336,7 +336,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83ca6ef3809b6c94aa606364775f3465, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Center: {fileID: 1205711199458286573, guid: e192812012f372d4587c16f219b54104, type: 3}
+  Center: {fileID: 6740855204429909863, guid: e192812012f372d4587c16f219b54104, type: 3}
   power: 5
   whatIsGrappleable:
     serializedVersion: 2
@@ -345,6 +345,7 @@ MonoBehaviour:
   player: {fileID: 6645175057300216236}
   reelSpeed: 20
   drowSpeed: 8
+  Player2Color: {r: 1, g: 0.0047169924, b: 0.707856, a: 0}
 --- !u!114 &6645175057300216248
 MonoBehaviour:
   m_ObjectHideFlags: 0

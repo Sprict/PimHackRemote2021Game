@@ -37,7 +37,6 @@ public class PlayerBehaviour : Bolt.EntityEventListener<ICubeState>
         state.OnStartGrapple += StartGrapple;
         state.OnStopGrapple += StopGrapple;
         state.AddCallback("CubeColor", ColorChanged);
-
         if (entity.IsOwner)
         {
             Center = BoltNetwork.Instantiate(BoltPrefabs.Center, this.transform.position, Quaternion.identity);
